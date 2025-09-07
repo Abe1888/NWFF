@@ -11,13 +11,15 @@ import TeamMemberDataManager from './TeamMemberDataManager'
 import TaskDataManager from './TaskDataManager'
 import CommentDataManager from './CommentDataManager'
 import ProjectDataSeeder from '../ui/ProjectDataSeeder'
+import DatabaseTest from '../ui/DatabaseTest'
 
-type DataType = 'project_seeder' | 'vehicles' | 'locations' | 'team_members' | 'tasks' | 'comments'
+type DataType = 'project_seeder' | 'database_test' | 'vehicles' | 'locations' | 'team_members' | 'tasks' | 'comments'
 
 const DataManagementHub = memo(() => {
-  const [activeTab, setActiveTab] = useState<DataType>('project_seeder')
+  const [activeTab, setActiveTab] = useState<DataType>('database_test')
 
   const tabs = [
+    { id: 'database_test', label: 'Database Test', icon: Database, component: DatabaseTest },
     { id: 'project_seeder', label: 'Project Setup', icon: Settings, component: ProjectDataSeeder },
     { id: 'vehicles', label: 'Vehicles', icon: Truck, component: VehicleDataManager },
     { id: 'locations', label: 'Locations', icon: MapPin, component: LocationDataManager },

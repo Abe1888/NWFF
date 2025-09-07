@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Database, RefreshCw, AlertTriangle, CheckCircle2, Trash2 } from 'lucide-react'
 import { resetAndSeedProject, clearAllData, seedProjectData } from '@/lib/utils/seedProjectData'
 import { resetAndSeedCore, clearCoreData, seedCoreProjectData } from '@/lib/utils/seedCoreData'
+import { resetAndSeedCorrectProject, clearAllData as clearCorrectData, seedCorrectProjectData } from '@/lib/utils/seedCorrectProjectData'
 
 export default function ProjectDataSeeder() {
   const [isLoading, setIsLoading] = useState(false)
@@ -86,7 +87,7 @@ export default function ProjectDataSeeder() {
               <div className="text-slate-600">Locations</div>
             </div>
             <div className="text-center">
-              <div className="font-semibold text-slate-900">6</div>
+              <div className="font-semibold text-slate-900">4</div>
               <div className="text-slate-600">Team Members</div>
             </div>
             <div className="text-center">
@@ -103,7 +104,7 @@ export default function ProjectDataSeeder() {
               setIsLoading(true)
               setResult(null)
               try {
-                const response = await resetAndSeedCore()
+                const response = await resetAndSeedCorrectProject()
                 setResult(response)
               } catch (error) {
                 setResult({
@@ -130,7 +131,7 @@ export default function ProjectDataSeeder() {
               setIsLoading(true)
               setResult(null)
               try {
-                const response = await seedCoreProjectData()
+                const response = await seedCorrectProjectData()
                 setResult(response)
               } catch (error) {
                 setResult({
@@ -200,8 +201,8 @@ export default function ProjectDataSeeder() {
 
         {/* Action Descriptions */}
         <div className="text-sm text-slate-600 space-y-1">
-          <div><strong>Quick Setup:</strong> Clears and loads core project data (vehicles, locations, team members)</div>
-          <div><strong>Add Data Only:</strong> Adds core project data (safe, uses upsert)</div>
+          <div><strong>Quick Setup:</strong> Clears and loads CORRECT project data (vehicles, locations, team: Abebaw, Tewachew, Mandefro, Mamaru)</div>
+          <div><strong>Add Data Only:</strong> Adds CORRECT project data (safe, uses upsert)</div>
           <div className="text-xs text-slate-500 mt-2">Advanced options include full schema with tasks and complex relationships</div>
         </div>
 
