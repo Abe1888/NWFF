@@ -59,7 +59,13 @@ export async function seedCoreProjectData(): Promise<{ success: boolean; message
     console.log('📍 Inserting locations...');
     const { error: locationsError } = await supabase
       .from('locations')
-      .upsert(locations, { onConflict: 'name' });
+      .upsert(locations.map(loc => ({
+        name: loc.name,
+        duration: loc.name === 'Bahir Dar' ? 'Days 1-8' : loc.name === 'Kombolcha' ? 'Days 10-12' : 'Days 13-14',
+        vehicles: loc.name === 'Bahir Dar' ? 15 : loc.name === 'Kombolcha' ? 6 : 3,
+        gps_devices: loc.name === 'Bahir Dar' ? 15 : loc.name === 'Kombolcha' ? 6 : 3,
+        fuel_sensors: loc.name === 'Bahir Dar' ? 16 : loc.name === 'Kombolcha' ? 7 : 3
+      })), { onConflict: 'name' });
 
     if (locationsError) {
       console.error('Locations error:', locationsError);
@@ -69,12 +75,15 @@ export async function seedCoreProjectData(): Promise<{ success: boolean; message
     console.log('👥 Inserting team members...');
     const { error: teamError } = await supabase
       .from('team_members')
-      .upsert(teamMembers.map(member => ({
-        ...member,
+      .upsert(teamMembers.map((member, index) => ({
+        id: `TM00${index + 1}`,
+        name: member.name,
+        role: member.role,
+        specializations: [],
         completion_rate: 0,
         average_task_time: 0,
         quality_score: 0
-      })), { onConflict: 'name' });
+      })), { onConflict: 'id' });
 
     if (teamError) {
       console.error('Team members error:', teamError);
